@@ -19,8 +19,10 @@
     ],
     "require": {
         "php": "^8.2",
+        "captenmasin/nativephp-health-connect": "dev-master",
         "laravel/boost": "^2.0",
         "laravel/framework": "^12.0",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "nativephp/mobile": "^3.0"
     },

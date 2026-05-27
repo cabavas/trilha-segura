@@ -1,43 +1,31 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>{{ $title ?? config('app.name', 'Mimi') }}</title>
-
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        {{-- Main Content --}}
-        <main class="nativephp-safe-area">
-            {{ $slot }}
-        </main>
-
-        {{-- Native Bottom Navigation --}}
-        <native:bottom-nav>
-            <native:bottom-nav-item
-                id="home"
-                icon="house.fill"
-                label="Home"
-                url="/"
-                :active="request()->is('/')"
-            />
-            <native:bottom-nav-item
-                id="explore"
-                icon="magnifyingglass"
-                label="Explore"
-                url="/explore"
-                :active="request()->is('explore*')"
-            />
-            <native:bottom-nav-item
-                id="settings"
-                icon="gearshape.fill"
-                label="Settings"
-                url="/settings"
-                :active="request()->is('settings*')"
-            />
-        </native:bottom-nav>
-    </body>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrilhaSegura</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{-- Ícones simples com Heroicons CDN (opcional) --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@heroicons/vue@2.0.18/outline/style.css" />
+</head>
+<body class="bg-gray-100 min-h-screen">
+<nav class="bg-green-700 text-white p-4 shadow">
+    <div class="container mx-auto flex justify-between items-center">
+        <a href="{{ url('/trilhas') }}" class="text-xl font-bold">🌲 TrilhaSegura</a>
+        <div>
+            @auth
+                <span>{{ Auth::user()->name }}</span>
+                <form method="POST" action="{{ route('logout') }}" class="inline">
+                    @csrf
+                    <button class="ml-4 text-sm underline">Sair</button>
+                </form>
+            @endauth
+        </div>
+    </div>
+</nav>
+<main class="container mx-auto p-4">
+    @yield('content')
+</main>
+@stack('scripts')
+</body>
 </html>
